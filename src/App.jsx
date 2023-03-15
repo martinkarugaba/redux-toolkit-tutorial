@@ -1,4 +1,12 @@
-function App() {
-  return <h2>Redux Toolkit</h2>;
+import Navbar from './components/Navbar';
+import CartContainer from './components/CartContainer';
+
+const App = () => {
+  return (
+    <main>
+      <Navbar />
+      <CartContainer />
+    </main>
+  );
 }
 export default App;
