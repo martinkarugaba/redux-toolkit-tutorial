@@ -15,14 +15,35 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.cartItems = [];
     },
+
     removeItem: (state, action) => {
       const itemId = action.payload;
       state.cartItems = state.cartItems.filter(
         (item) => item.id !== itemId
       );
     },
+
+    increaseCartItemAmount: (state, { payload }) => {
+      const cartItem = state.cartItems.find(
+        (item) => item.id === payload.id
+      );
+      cartItem.amount += 1;
+    },
+
+    decreaseCartItemAmount: (state, { payload }) => {
+      const cartItem = state.cartItems.find(
+        (item) => item.id === payload.id
+      );
+      cartItem.amount -= 1;
+    },
   },
 });
 
-export const { clearCart, removeItem } = cartSlice.actions;
+export const {
+  clearCart,
+  removeItem,
+  increaseCartItemAmount,
+  decreaseCartItemAmount,
+} = cartSlice.actions;
+
 export default cartSlice.reducer;
