@@ -18,7 +18,7 @@ const App = () => {
   }, [cartItems]);
 
   useEffect(() => {
-    dispatch(getCartItems());
+    dispatch(getCartItems('John'));
   },[]);
 
   if (isLoading) {
