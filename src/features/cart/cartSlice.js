@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { openModal } from "../modal/modalSlice";
 
-const url = "https://course-apis.com/react-useReducer-cart-project/";
+const url = "https://course-api.com/react-useReducer-cart-project/";
 
 const initialState = {
   cartItems: [],
@@ -20,7 +20,7 @@ export const getCartItems = createAsyncThunk(
       console.log(thunkAPI);
       //console.log(thunkAPI.getState()); // access whole application state
       //thunkAPI.dispatch(openModal()) // access actions from another feature
-      
+
       const res = await axios(url);
       return res.data;
     } catch (error) {
@@ -73,19 +73,19 @@ const cartSlice = createSlice({
     },
   },
 
-  extraReducers: {
-    [getCartItems.pending]: (state) => {
-      state.isloading = true;
-    },
-    [getCartItems.fulfilled]: (state, action) => {
-      //console.log(action);
-      state.isloading = false;
-      state.cartItems = action.payload;
-    },
-    [getCartItems.rejected]: (state, action) => {
-      state.isloading = false;
-      console.log(action);
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getCartItems.pending, (state) => {
+        state.isloading = true;
+      })
+      .addCase(getCartItems.fulfilled, (state, action) => {
+        state.isloading = false;
+        state.cartItems = action.payload;
+      })
+      .addCase(getCartItems.rejected, (state) => {
+        console.log(action);
+        state.isloading = false;
+      });
   },
 });
 
